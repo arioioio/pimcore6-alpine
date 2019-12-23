@@ -9,9 +9,10 @@ RUN apk upgrade --update && apk add --no-cache --virtual .build-deps  \
         cmake \
         g++ \
         libtool \
-    && apk add \
+    && apk add --no-cache \
         libwebp-dev \
         libjpeg-turbo-dev \
+        libjpeg-turbo-utils \
         freetype-dev \
         libmcrypt-dev \
         libpng-dev \
@@ -21,9 +22,13 @@ RUN apk upgrade --update && apk add --no-cache --virtual .build-deps  \
         libxml2-dev \
         libxslt-dev \
         libzip-dev \
+        imagemagick \
+        imagemagick-dev \
         graphviz \
         wkhtmltopdf \
+    && apk add --no-cache \
         bash \
+        shadow \
     && docker-php-ext-configure gd \
         --with-freetype-dir=/usr/include/ \
         --with-jpeg-dir=/usr/include/ \
@@ -33,8 +38,6 @@ RUN apk upgrade --update && apk add --no-cache --virtual .build-deps  \
     \
     && pecl config-set php_ini  /usr/local/etc/php/php.ini \
     \
-    && apk add imagemagick \
-    && apk add imagemagick-dev \
     && pecl install imagick-3.4.4 \
     && docker-php-ext-enable imagick \
     \
@@ -76,3 +79,7 @@ RUN set -eux; \
     composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --classmap-authoritative; \
     composer clear-cache
 ENV PATH="${PATH}:/root/.composer/vendor/bin"
+
+RUN usermod -u 1000 www-data \
+    && groupmod -g 1000 www-data
+
