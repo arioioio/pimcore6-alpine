@@ -25,7 +25,11 @@ RUN apk upgrade --update && apk add --no-cache --virtual .build-deps  \
         imagemagick \
         imagemagick-dev \
         graphviz \
-        wkhtmltopdf \
+        ttf-dejavu \
+        ttf-droid \
+        ttf-freefont \
+        ttf-liberation \
+        ttf-ubuntu-font-family \
     && apk add --no-cache \
         bash \
         shadow \
@@ -34,7 +38,7 @@ RUN apk upgrade --update && apk add --no-cache --virtual .build-deps  \
         --with-jpeg-dir=/usr/include/ \
         --with-xpm-dir=/usr/include \
         --with-webp-dir=/usr/include/ \
-    && docker-php-ext-install intl mysqli bcmath gd bz2 soap xmlrpc xsl pdo_mysql exif zip opcache \
+    && docker-php-ext-install filter intl mysqli bcmath gd bz2 soap xmlrpc xsl pdo_mysql exif zip opcache \
     \
     && pecl config-set php_ini  /usr/local/etc/php/php.ini \
     \
@@ -69,6 +73,11 @@ RUN apk upgrade --update && apk add --no-cache --virtual .build-deps  \
         && make install \
         && cd .. \
         && rm -rf advancecomp-1.17 \
+    && wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5_linux-generic-amd64.tar.xz \
+        && tar xvf wkhtmltox-0.12.5_linux-generic-amd64.tar.xz \
+        && mv wkhtmltox/bin/wkhtmlto* /usr/bin/ \
+        && rm -rf wkhtmltox \
+    \
     && apk del .build-deps
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
