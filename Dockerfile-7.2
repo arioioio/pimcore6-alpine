@@ -38,7 +38,7 @@ RUN apk upgrade --update && apk add --no-cache --virtual .build-deps  \
         --with-jpeg-dir=/usr/include/ \
         --with-xpm-dir=/usr/include \
         --with-webp-dir=/usr/include/ \
-    && docker-php-ext-install filter intl mysqli bcmath gd bz2 soap xmlrpc xsl pdo_mysql exif zip opcache \
+    && docker-php-ext-install intl mysqli bcmath gd bz2 soap xmlrpc xsl pdo_mysql exif zip opcache iconv \
     \
     && pecl config-set php_ini  /usr/local/etc/php/php.ini \
     \
