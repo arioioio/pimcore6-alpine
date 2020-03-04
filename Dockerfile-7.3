@@ -73,12 +73,10 @@ RUN apk upgrade --update && apk add --no-cache --virtual .build-deps  \
         && make install \
         && cd .. \
         && rm -rf advancecomp-1.17 \
-    && wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox-0.12.5_linux-generic-amd64.tar.xz \
-        && tar xvf wkhtmltox-0.12.5_linux-generic-amd64.tar.xz \
-        && mv wkhtmltox/bin/wkhtmlto* /usr/bin/ \
-        && rm -rf wkhtmltox \
-    \
     && apk del .build-deps
+
+COPY --from=aantonw/alpine-wkhtmltopdf-patched-qt /bin/wkhtmltopdf /usr/bin/wkhtmltopdf
+COPY --from=aantonw/alpine-wkhtmltopdf-patched-qt /bin/wkhtmltoimage /usr/bin/wkhtmltoimage
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_MEMORY_LIMIT -1
