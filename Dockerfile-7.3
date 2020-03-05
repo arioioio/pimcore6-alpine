@@ -60,12 +60,8 @@ RUN apk upgrade --update && apk add --no-cache --virtual .build-deps  \
         && cd .. \
         && rm -rf zopfli \
     \
-    && wget http://static.jonof.id.au/dl/kenutils/pngout-20150319-linux.tar.gz \
-        && tar -xf pngout-20150319-linux.tar.gz \
-        && rm pngout-20150319-linux.tar.gz \
-        && cp pngout-20150319-linux/x86_64/pngout /bin/pngout \
-        && cd .. \
-        && rm -rf pngout-20150319-linux \
+    && wget https://github.com/imagemin/pngout-bin/raw/master/vendor/linux/x64/pngout -O /bin/pngout \
+        && chmod 0755 /bin/pngout \
     \
     && wget http://prdownloads.sourceforge.net/advancemame/advancecomp-1.17.tar.gz \
         && tar zxvf advancecomp-1.17.tar.gz \
