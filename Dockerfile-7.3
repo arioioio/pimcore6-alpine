@@ -49,6 +49,8 @@ RUN apk upgrade --update && apk add --no-cache --virtual .build-deps  \
     && pecl install redis \
     && docker-php-ext-enable redis apcu \
     \
+    && apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted \
+    \
     && cd ~ \
     \
     && git clone https://github.com/google/zopfli.git \
@@ -74,6 +76,8 @@ RUN apk upgrade --update && apk add --no-cache --virtual .build-deps  \
         && cd .. \
         && rm -rf advancecomp-1.17 \
     && apk del .build-deps
+
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 
 COPY --from=aantonw/alpine-wkhtmltopdf-patched-qt /bin/wkhtmltopdf /usr/bin/wkhtmltopdf
 COPY --from=aantonw/alpine-wkhtmltopdf-patched-qt /bin/wkhtmltoimage /usr/bin/wkhtmltoimage
