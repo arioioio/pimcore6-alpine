@@ -11,4 +11,4 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
-      run: docker build . --file Dockerfile-7.2 --tag php-7.2 && docker build . --file Dockerfile-7.3 --tag php-7.3 && docker build . --file Dockerfile-7.4 --tag php-7.4 --tag stable --tag latest
+      run: docker build . --file Dockerfile-7.1 --tag php-7.1 && docker build . --file Dockerfile-7.2 --tag php-7.2 && docker build . --file Dockerfile-7.3 --tag php-7.3 && docker build . --file Dockerfile-7.4 --tag php-7.4 --tag stable --tag latest
