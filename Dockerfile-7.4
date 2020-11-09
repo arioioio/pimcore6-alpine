@@ -34,10 +34,10 @@ RUN apk upgrade --update && apk add --no-cache --virtual .build-deps  \
         bash \
         shadow \
     && docker-php-ext-configure gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ \
-        --with-xpm-dir=/usr/include \
-        --with-webp-dir=/usr/include/ \
+        --with-freetype=/usr/include/ \
+        --with-jpeg=/usr/include/ \
+        --with-xpm=/usr/include \
+        --with-webp=/usr/include/ \
     && docker-php-ext-install intl mysqli bcmath gd bz2 soap xmlrpc xsl pdo_mysql exif zip opcache iconv \
     \
     && pecl config-set php_ini  /usr/local/etc/php/php.ini \
